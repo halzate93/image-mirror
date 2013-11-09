@@ -1,0 +1,15 @@
+Begin
+	path := readPath();
+	image := readImage(path); //apuntador al inicio de la img
+	for(i := 0; i < n; i++) { //row
+		for(j := 0; j < m/2 ; j++){ //pixel
+			//image[i, m-j] := image[i, j];
+			for(k := 0; k < 3; k++){ //RGB component
+				src := image + i * rowsize + j * 3 + k; //dirección del componente de origen
+				dest := image + i * rowsize + (m - j) * 3 + k; //dirección del componente de destino
+				copiar (src, dest); //mov [dest],[src]	
+			}
+		}
+	}
+	writeFile(image)
+End
