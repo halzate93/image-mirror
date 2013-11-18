@@ -1,6 +1,6 @@
  sys_exit equ 1
 
- global _start
+ global main
  extern testFunction
 	
 segment .data
@@ -8,7 +8,7 @@ segment .data
 segment .bss
 	
 segment .text
- _start:
+ main:
 	mov rax, 0
 	mov rdi, 5
 	mov rsi, 10
