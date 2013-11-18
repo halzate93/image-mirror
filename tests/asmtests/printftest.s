@@ -5,20 +5,20 @@
 
 	
 segment .data
-	format:	db "%s\n", 0AH, 0
-	
+	format:	db "%s", 0AH, 0
 segment .text
 	
  _start:
-	mov ebp, esp
-
-	cmp dword [ebp + 4], 1
-	je noargs
+	pop rcx
+	cmp rcx, 1
 	
-	mov ebx, 3
+	je noargs
+
+	pop rcx 		;path to app
+	pop rcx			;first arg
 	mov rax, 0
 	mov rdi, format
-	mov rsi, 8 
+	mov rsi, rcx 
 	call printf
 
 	jmp exit
