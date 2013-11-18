@@ -6,10 +6,10 @@
 	
 segment .data
 	format:	db "%s", 0AH, 0
+
 segment .text
-	
  _start:
-	pop rcx
+	pop rcx			;args count
 	cmp rcx, 1
 	
 	je noargs
@@ -25,10 +25,7 @@ segment .text
 	
  noargs:
 	jmp exit
-
+	
  exit:
-	mov esp, ebp
-
 	mov eax, sys_exit
-	xor ebx, ebx 		;volver 0 un registro
 	int 80H
