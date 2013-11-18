@@ -1,1 +1,1 @@
-gcc imagemirror.c -o imagemirror.out `pkg-config --cflags --libs opencv`
+gcc -std=c99 imagemirror.c -o imagemirror.out `pkg-config --cflags --libs opencv`
