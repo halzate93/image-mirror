@@ -28,7 +28,7 @@ int main (int argc, char** argv)
   }
 
   cvShowImage("image", nwimg);
-
+  //cvSaveImage("~/Downloads/genimg.jpg", nwimg);
   cvWaitKey(0);
   cvDestroyWindow("image");
   cvReleaseImage(&nwimg);
