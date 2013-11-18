@@ -15,7 +15,7 @@ struct image *initImage(char* data, int rows, int columns){
   return instance;
 }
 
-int main() {
+struct image *mockupMatrix(){
   char mat [10];
   int i = 0;
   int j = 0;
@@ -23,7 +23,15 @@ int main() {
   for(i = 0; i < 10; i++){
     mat[i] = i;
   }
+
   struct image* img = initImage(mat, 2, 5);
+
+  return img;
+}
+
+/*int main() {
+  
+  struct image *img = mockupMatrix();
 
   for(i = 0; i < img->rows; i++){
     for(j = 0; j < img->columns; j++){
@@ -36,4 +44,4 @@ int main() {
   printf("int %ld\n", sizeof(int));
   printf("image %ld\n*", sizeof(image*));
   return 0;
-}
+  }*/
