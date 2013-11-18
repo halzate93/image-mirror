@@ -1,0 +1,1 @@
+gcc testMat.c -o testMat.out
