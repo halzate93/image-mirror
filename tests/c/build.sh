@@ -1,1 +1,1 @@
-gcc -std=c99 mirror.c -o mirror `pkg-config --cflags --libs opencv`
+gcc imagemirror.c -o imagemirror.out `pkg-config --cflags --libs opencv`
