@@ -30,7 +30,10 @@ int main( int argc, char** argv )
       }
     }
   }
-  
+  vector<int> compression_params;
+  compression_params.push_back(CV_IMWRITE_JPEG_QUALITY);
+  compression_params.push_back(95);
+  imwrite("genimg.jpg", img, compression_params);
   namedWindow( "Display Image", CV_WINDOW_AUTOSIZE );
   imshow( "Display Image", img );
 
