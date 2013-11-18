@@ -8,7 +8,9 @@ segment .data
 segment .bss
 	
 segment .text
- main:
+ _start:
+	jmp main
+ main:	
 	mov rax, 0
 	mov rdi, 5
 	mov rsi, 10
