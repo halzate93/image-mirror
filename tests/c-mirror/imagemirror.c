@@ -22,7 +22,7 @@ int main (int argc, char** argv)
     for(int j = 0; j < width; j++){
       for(int k = 0; k < channels; k++){
 	dst[nwimg->width * i * channels + j * channels + k] = input[width * i * channels + j * channels + k];
-	//dst[nwimg->width * i * channels + (width - j) * channels + k] = dst[width * i * channels + j * channels + k];
+	dst[nwimg->width * i * channels + (nwimg->width - j) * channels + k] = dst[nwimg->width * i * channels + j * channels + k];
       }
     }
   }
