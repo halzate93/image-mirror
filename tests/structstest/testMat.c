@@ -1,47 +1,47 @@
 #include <stdio.h>
 
+unsigned char mat [100];
+
 typedef struct image{
   int rows;
   int columns;
-  char * data;
+  unsigned char* data;
 }image;
 
-struct image *initImage(char* data, int rows, int columns){
-  struct image *instance = malloc(sizeof(image*));
+struct image* initImage(unsigned char* data, int rows, int columns){
+  image* instance = malloc(sizeof(image*));
   instance->rows = rows;
   instance->columns = columns;
   instance->data = data;
-  
   return instance;
 }
 
-struct image *mockupMatrix(){
-  char mat [10];
-  int i = 0;
-  int j = 0;
-
-  for(i = 0; i < 10; i++){
+extern struct image* mockupMatrix(){
+  int i;
+  for(i = 0; i < 100; i++){
     mat[i] = i;
   }
-
-  struct image* img = initImage(mat, 2, 5);
-
+  struct image* img = initImage(mat, 10, 10);
   return img;
+}
+
+extern void printMatrix(image* img){
+  int i, j;
+  for(i = 0; i < img->rows; i++){
+    for(j = 0; j < img->columns; j++){
+      printf("%d ", img->data[i * (img->columns) + j]);
+    }
+    printf("\n");
+  }
 }
 
 /*int main() {
   
-  struct image *img = mockupMatrix();
+  struct image* img = mockupMatrix();
+  printMatrix(img);
 
-  for(i = 0; i < img->rows; i++){
-    for(j = 0; j < img->columns; j++){
-      printf("%d ", img->data[i * img->columns + j]);
-    }
-    printf("\n");
-  }
-
-  printf("char %ld\n", sizeof(char));
+  printf("uchar* %ld\n", sizeof(unsigned char*));
   printf("int %ld\n", sizeof(int));
-  printf("image %ld\n*", sizeof(image*));
+  printf("image* %ld\n", sizeof(image*));
   return 0;
-  }*/
+}*/
