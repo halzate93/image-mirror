@@ -32,6 +32,17 @@ extern "C" void saveImage(uchar* image, int rows, int cols, char* path){
   imwrite(path, img, compression_params);
 }
 
+image* mirror(image* img, int width, int height){
+  for(int i = 0; i < height; i++){
+    for(int j = 0; i < width; j++){
+      for(int k = 0; k < 3; k++){
+	img->data[i * width * 3 + (width - j) * 3 + k] = img->data[i * width * 3 + j * 3 + k];
+      }
+    }
+  }
+  return img;
+}
+
 int main(int argc, char** argv){
   //image* img = loadImage(argv[1]);
   //saveImage(img->data, img->rows, img->columns, (char*)"gen.jpg\0");

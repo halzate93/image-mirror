@@ -26,7 +26,7 @@ int main( int argc, char** argv )
   for(int i = 0; i < img.rows; i++){
     for(int j = 0; j < (img.cols / 2); j++){
       for(int k = 0; k < ch; k++){
-	input[img.cols * i * ch + (img.cols - j) * ch + k] = input[img.cols * i * ch + j * ch + k];
+	input[img.cols * i * ch + (img.cols - j - 1) * ch + k] = input[img.cols * i * ch + j * ch + k];
       }
     }
   }

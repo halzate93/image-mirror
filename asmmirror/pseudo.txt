@@ -1,0 +1,68 @@
+image* struct;
+dd rows := [struct];
+dd cols := [struct + 4];
+db data := struct + 8;
+
+dd i := 0;
+dd j := 0;
+dd k := 0;
+
+while(i<rows){
+	while(j<cols/2){
+		while(k<3){
+			data[i * cols * 3 + (cols - 1 - j) * 3 + k] = data[i * cols * ch + j * ch + k];
+			k++;
+		}
+		j++;
+	}
+	i++;
+}
+
+call guardarImagen
+
+-------------------------------------//-------------------------------------------------
+
+AVENGERS: ASSEMBLE
+
+section .data
+	i: dd 0 ;declaración de i en 0
+	j: dd 0 ;//
+	k: dd 0 ;//
+	z: dd 0
+
+section .bss
+	data: resq 1 ; 8 bytes para el puntero al struct
+	rows: resd 1 ; 4 bytes para el entero de rows
+	cols: resd 1 ; 4 bytes para las columnas
+	img: resq 1 ; 8 bytes para el puntero a la imagen
+	indexSrc: resd 1 ; index origen
+	indexDst: resd 1 ; index destino
+
+section .text
+	global main
+
+_start:
+	jmp main
+
+main:
+	;poner argumentos en stack, llamar funciones...
+
+rowsLoop:
+
+colsLoop:
+
+chLoop:
+		
+
+
+	inc k
+	cmp k,z
+	jge chLoop
+	mov k,z
+	inc j
+	cmp j,z
+	jge colsLoop
+	mov j,z
+	inc i
+	cmp i,z
+	jge rowsLoop
