@@ -1,1 +1,0 @@
-g++ -c mirror.cpp `pkg-config --cflags --libs opencv`
