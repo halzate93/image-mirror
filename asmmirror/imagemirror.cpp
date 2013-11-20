@@ -41,6 +41,10 @@ extern "C" uchar* getData(){
   return data;
 }
 
+extern "C" void copyPixels(int src, int dst){
+  data[dst] = data[src];
+}
+
 extern "C" int saveImage(char* path){
   Mat img = Mat(rows, cols, CV_8UC3, data);
   vector<int> compression_params;

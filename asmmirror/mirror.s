@@ -9,6 +9,7 @@
  extern getCols
  extern getRows
  extern getData
+ extern copyPixels
 	
 segment .data
 	i:	 dd 0 			;declaración de i en 0
@@ -95,19 +96,11 @@ segment .text
 	imul dword [channel]
 	add eax, dword [indexSrc]
 	mov [indexSrc], dword eax
-
-	mov rax, [data]
-	add rax, [indexSrc]
-
-	mov rbx, [data]
-	add rbx, [indexDst]
-	mov rsi, [rax]
-	mov [rbx], rsi
 	
 	mov rax, 0
-	mov rdi, format
-	mov rsi, [rbx]
-	call printf
+	mov rdi, [indexSrc]
+	mov rsi, [indexDst]
+	call copyPixels
 	;mov rbx, [rax + indexSrc]
 	
 	;; Se revisa el ciclo de k.
@@ -139,11 +132,10 @@ segment .text
 	jne rowsLoop
 
 	mov rax,0
-	mov rdi,format
-	mov rsi, [i]
-	call printf
-
+	mov rdi, [dest]
+	call saveImage
 	jmp exit
+	
  noargs:
 	mov rdi, emptyargs
 	mov rax, 0
