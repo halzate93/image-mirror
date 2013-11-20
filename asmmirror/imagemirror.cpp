@@ -54,15 +54,15 @@ extern "C" void mirror(){
   }
 }
 
-int main(int argc, char** argv){
+/*int main(int argc, char** argv){
   loadImage(argv[1]);
   saveImage(argv[2]);
-  /*Mat img = imread(argv[1], 1);
+  Mat img = imread(argv[1], 1);
   uchar* data = img.data;
   Mat save = Mat(img.rows, img.cols, CV_8UC3, data);
   vector<int> compression_params;
   compression_params.push_back(CV_IMWRITE_PNG_COMPRESSION);
   compression_params.push_back(9);
-  imwrite("/home/user/Downloads/lol.jpg", save, compression_params);*/ 
+  imwrite("/home/user/Downloads/lol.jpg", save, compression_params);
   return 0;
-}
+}*/
