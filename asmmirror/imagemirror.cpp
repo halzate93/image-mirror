@@ -4,12 +4,17 @@
 #include <opencv2/opencv.hpp>
 
 using namespace cv;
+using namespace std;
 
 int cols, rows;
 uchar* data;
 
-extern "C" void loadImage(char* path){
+extern "C" int loadImage(char* path){
   Mat img = imread(path, 1);
+  if(!img.data){
+    fprintf(stderr ,"No image could be load at path %s.\n", path);
+    return 0;
+  }
   cols = img.cols;
   rows = img.rows;
   data = (uchar*)malloc(cols * rows * 3 * sizeof(uchar));
@@ -22,6 +27,7 @@ extern "C" void loadImage(char* path){
       }
     }
   }
+  return 1;
 }
 
 extern "C" int getCols(){
@@ -36,12 +42,18 @@ extern "C" uchar* getData(){
   return data;
 }
 
-extern "C" void saveImage(char* path){
+extern "C" int saveImage(char* path){
   Mat img = Mat(rows, cols, CV_8UC3, data);
   vector<int> compression_params;
   compression_params.push_back(CV_IMWRITE_PNG_COMPRESSION);
   compression_params.push_back(9);
-  imwrite(path, img, compression_params);
+  try{
+    imwrite(path, img, compression_params);
+  } catch (exception& ex) {
+    fprintf(stderr, "The image couldn't be saved: %s\n", ex.what());
+    return 0;
+  }
+  return 1;
 }
 
 extern "C" void mirror(){

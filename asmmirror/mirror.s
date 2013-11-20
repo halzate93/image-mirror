@@ -16,6 +16,7 @@ segment .data
 	k:	 dd 0 			;//		;
 	channel: dd 3	
 	format:	db "%d", 0AH, 0
+	emptyargs: db "Invalid args, please input two valid image paths.", 0AH, 0
 	msg:	 db "", 0AH, 0
 segment .bss
 	data:	 resq 1			; 8 bytes para el puntero al struct
@@ -43,8 +44,12 @@ segment .text
 	mov rax, 0
 	call loadImage
 
+	cmp rax, 0		;Verificar si la imagen se cargo
+	je exit
+
 	mov rax, 0
 	call getRows
+	
 	mov [rows], rax
 
 	mov rax,0
@@ -139,8 +144,11 @@ segment .text
 	mov rsi, [i]
 	call printf
 
+	jmp exit
  noargs:
-	;; decir que no hay args.
+	mov rdi, emptyargs
+	mov rax, 0
+	call printf
 	jmp exit
  exit:
 	mov    rax, 60        	; sys_exit
