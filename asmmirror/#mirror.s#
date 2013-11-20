@@ -60,7 +60,6 @@ segment .text
 	mov rdi, 2
 	div rdi
 	mov [colsmed], eax
-
 	
  rowsLoop:
 

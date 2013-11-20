@@ -9,7 +9,7 @@ using namespace std;
 typedef struct image{
   int rows;
   int columns;
-  uchar* data;
+  uchar * data;
 }image;
 
 int cols, rows;
@@ -44,15 +44,7 @@ extern "C" uchar* getData(){
 }
 //extern "C" void getImage(char* path
 
-/*extern "C" void saveImage(uchar* image, int rows, int cols, char* path){
-  Mat img = Mat(rows, cols, CV_8UC3, image);
-  vector<int> compression_params;
-  compression_params.push_back(CV_IMWRITE_PNG_COMPRESSION);
-  compression_params.push_back(9);
-  imwrite(path, img, compression_params);
-  }*/
-
-extern "C" void saveImage(uchar* image, char* path){
+extern "C" void saveImage(uchar* image, int rows, int cols, char* path){
   Mat img = Mat(rows, cols, CV_8UC3, image);
   vector<int> compression_params;
   compression_params.push_back(CV_IMWRITE_PNG_COMPRESSION);
