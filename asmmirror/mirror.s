@@ -19,6 +19,10 @@ segment .bss
 segment .text
 
  _start:
+	pop rcx 		;args count
+	cmp rcx, 1
+	je noargs
+	pop rcx 		;first arg
         jmp main
 
  main:
@@ -87,7 +91,14 @@ segment .text
 	cmp ebx, eax
 	jne rowsLoop
 
+ noargs:
+	;; decir que no hay args.
+	jmp exit
  exit:
-	mov eax, sys_exit
-	int 80h
+	mov    rax, 60        	; sys_exit
+	mov    rdi, 0        	; return 0 (success)
+	syscall
+	;mov eax, sys_exit
+	;mov ebx, 0
+	;int 80h
 	
