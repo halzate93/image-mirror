@@ -47,7 +47,7 @@ segment .text
 	call getRows
 	mov [rows], rax
 
-	mov rax,0
+	mov rax, 0
 	call getCols
 	mov [cols], rax
 
@@ -60,7 +60,6 @@ segment .text
 	mov rdi, 2
 	div rdi
 	mov [colsmed], eax
-
 	
  rowsLoop:
 
@@ -82,7 +81,7 @@ segment .text
 
 
 	;; Se calcula el indice fuente.
-	mov eax,dword [j]
+	mov eax, dword [j]
 	imul dword [channel]
 	add eax, dword [k]
 	mov [indexSrc], dword eax
@@ -93,18 +92,18 @@ segment .text
 	mov [indexSrc], dword eax
 
 	mov rax, [data]
-	add rax,[indexSrc]
-	mov rbx,rax
-	mov rax,[data]
-	add rax,[indexDst]
-	;mov r9,rax
-	;mov rax,[r9]
-	;mov [rbx],rax
+	add rax, [indexSrc]
+
+	mov rbx, [data]
+	add rbx, [indexDst]
+	mov rsi, [rax]
+	mov [rbx], rsi
 	
-	;mov rax, 0
-	;mov rdi, format
-	;mov rsi, [indexSrc]
-	;call printf
+	mov rax, 0
+	mov rdi, format
+	mov rsi, [rbx]
+	call printf
+	;mov rbx, [rax + indexSrc]
 	
 	;; Se revisa el ciclo de k.
 	mov eax,dword [k]
