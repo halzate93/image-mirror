@@ -22,7 +22,6 @@ extern "C" int loadImage(char* path){
   for(i = 0; i < rows; i++){
     for(j = 0; j < cols; j++){
       for(k = 0; k < 3; k++){
-	//printf("YEAH %d %d %d\n", i, j, k);
 	data[i * cols * 3 + j * 3 + k] = img.data[i * cols * 3 + j * 3 + k];
       }
     }
