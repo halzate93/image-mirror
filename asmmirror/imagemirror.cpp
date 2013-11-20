@@ -51,7 +51,9 @@ extern "C" int saveImage(char* path){
   compression_params.push_back(CV_IMWRITE_PNG_COMPRESSION);
   compression_params.push_back(9);
   try{
-    imwrite(path, img, compression_params);
+    if(!imwrite(path, img, compression_params)){
+      fprintf(stderr, "The image couldn't be saved.\n");
+    }
   } catch (exception& ex) {
     fprintf(stderr, "The image couldn't be saved: %s\n", ex.what());
     return 0;
