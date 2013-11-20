@@ -1,34 +1,70 @@
  sys_exit equ 1
  ;channel equ 3
  one equ 1
+ two equ 2
  global main
- extern print
+ extern loadImage
+ extern saveImage
+ extern printf
+ extern getCols
+ extern getRows
+ extern getData
+	
 segment .data
 	i:	 dd 0 			;declaración de i en 0
 	j:	 dd 0 			;//
 	k:	 dd 0 			;//		;
 	channel: dd 3	
+	format:	db "%d", 0AH, 0
+	msg:	 db "", 0AH, 0
 segment .bss
-	;data:	 resq 1			; 8 bytes para el puntero al struct
+	data:	 resq 1			; 8 bytes para el puntero al struct
 	rows:	 resd 1 		; 4 bytes para el entero de rows
 	cols:	 resd 1 		; 4 bytes para las columnas
+	colsmed:	resd 1
 	;img:	 resq 1 		; 8 bytes para el puntero a la imagen
+	src:	resq 1
+	dest:	resq 1
 	indexSrc:	 resd 1 	; index origen
 	indexDst:	 resd 1 	; index destino
 
 segment .text
 
- _start:
-	pop rcx 		;args count
-	cmp rcx, 1
-	je noargs
-	pop rcx 		;first arg
-        jmp main
-
  main:
-	mov [cols], dword 3
-	mov [rows], dword 3
-	;; poner argumentos en stack, llamar funciones...
+	cmp rdi, 3
+	jne noargs
+
+	mov rdx, qword [rsi + 8] ;Se recibe el path origen
+	mov [src], rdx
+	mov rdx, qword [rsi + 16] ;Se recibe el path destino
+	mov [dest], rdx
+
+	mov rdi, [src] 		;Se pasa el path origen como parámetro
+	mov rax, 0
+	call loadImage
+
+	mov rax, 0
+	call getRows
+	mov [rows], rax
+
+	mov rax,0
+	call getCols
+	mov [cols], rax
+
+	mov rax, 0
+	call getData
+	mov [data], rax
+
+	mov rax, [cols]
+	mov rdx, 0
+	mov rdi, 2
+	div rdi
+	mov [colsmed], eax
+
+	mov rax, 0
+	mov rdi, format
+	mov rsi, [colsmed]
+	call printf
  rowsLoop:
 
  colsLoop:
@@ -59,10 +95,9 @@ segment .text
 	add eax, dword [indexSrc]
 	mov [indexSrc], dword eax
 
-	mov rax,0
-	mov rdi, [indexSrc]
-	call print
-
+	mov rax, [data + indexSrc]
+	mov [data + indexDst], rax
+	
 	;; Se revisa el ciclo de k.
 	mov eax,dword [k]
 	add eax,one
@@ -77,7 +112,7 @@ segment .text
 	mov eax, dword [j]
 	add eax,one
 	mov [j], dword eax
-	mov ebx, dword [cols]
+	mov ebx, dword [colsmed]
 	cmp eax, ebx
 	jne colsLoop
 	mov [j], dword 0
